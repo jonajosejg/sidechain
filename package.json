@@ -1,7 +1,7 @@
 {
-  "name": "bcoin",
-  "version": "2.2.0",
-  "description": "Bitcoin bike-shed",
+  "name": "sidechain",
+  "version": "2.2.1",
+  "description": "Bitcoin sidechain template",
   "license": "MIT",
   "repository": "git://github.com/bcoin-org/bcoin.git",
   "homepage": "https://github.com/bcoin-org/bcoin",
@@ -10,13 +10,15 @@
   },
   "author": "Fedor Indutny <fedor@indutny.com>",
   "contributors": [
-    "Christopher Jeffrey <chjjeffrey@gmail.com>"
+    "Christopher Jeffrey <chjjeffrey@gmail.com>",
+    "Jonathan Gonzales <jjmhtp@gmail.com>"
   ],
   "keywords": [
     "bcoin",
     "bitcoin",
     "blockchain",
     "cryptocurrency",
+    "sidechain",
     "wallet"
   ],
   "engines": {
