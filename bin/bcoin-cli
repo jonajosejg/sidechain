@@ -7,15 +7,13 @@ const NodeClient = require('../lib/client/node');
 const Amount = require('../lib/btc/amount');
 
 const ports = {
-  main: 8332,
-  testnet: 18332,
-  regtest: 48332,
-  simnet: 18556
+  main: 2751,
+  regtest: 12444
 };
 
 class CLI {
   constructor() {
-    this.config = new Config('bcoin', {
+    this.config = new Config('sidechain', {
       suffix: 'network',
       fallback: 'main',
       alias: {
@@ -34,10 +32,10 @@ class CLI {
       env: true
     });
 
-    this.config.open('bcoin.conf');
+    this.config.open('sidechain.conf');
 
     this.argv = this.config.argv;
-    this.network = this.config.str('network', 'main');
+    this.network = this.config.str('network', 'regtest');
 
     this.client = new NodeClient({
       url: this.config.str('url'),
