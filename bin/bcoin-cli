@@ -179,6 +179,14 @@ class CLI {
     this.log(tx);
   }
 
+  async broadcastWithdrawal() {
+    const raw = this.config.str([0,'tx']);
+    const tx = await this.client.broadcastWithdrawal(raw);
+
+    this.log('Broadcasted Withdrawal:');
+    this.log(tx);
+  }
+
   async reset() {
     let hash = this.config.str(0);
 
@@ -225,6 +233,9 @@ class CLI {
         break;
       case 'broadcast':
         await this.broadcast();
+        break;
+      case 'broadcastwithdrawal':
+        await this.broadcastWithdrawal();
         break;
       case 'mempool':
         await this.getMempool();
