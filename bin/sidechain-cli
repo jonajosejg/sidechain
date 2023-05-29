@@ -7,8 +7,8 @@ const NodeClient = require('../lib/client/node');
 const Amount = require('../lib/btc/amount');
 
 const ports = {
-  main: 2751,
-  regtest: 12444
+  main: 8272,
+  regtest: 18743
 };
 
 class CLI {
@@ -35,7 +35,7 @@ class CLI {
     this.config.open('sidechain.conf');
 
     this.argv = this.config.argv;
-    this.network = this.config.str('network', 'regtest');
+    this.network = this.config.str('network', 'main');
 
     this.client = new NodeClient({
       url: this.config.str('url'),
