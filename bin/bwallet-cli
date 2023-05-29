@@ -34,7 +34,7 @@ class CLI {
     this.config.open('wallet.conf');
 
     this.argv = this.config.argv;
-    this.network = this.config.str('network', 'regtest');
+    this.network = this.config.str('network', 'main');
 
     const id = this.config.str('id', 'primary');
     const token = this.config.str('token', '');
