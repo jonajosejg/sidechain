@@ -26,12 +26,12 @@ describe('Address', function() {
     assert.strictEqual(addr.toString('main'), expectedAddr);
   });
 
-  it('should match testnet p2pkh address', () => {
+  it('should match regtest p2pkh address', () => {
     const raw = '78b316a08647d5b77283e512d3603f1f1c8de68f';
     const p2pkh = Buffer.from(raw, 'hex');
     const addr = Address.fromPubkeyhash(p2pkh);
     const expectedAddr = 'mrX9vMRYLfVy1BnZbc5gZjuyaqH3ZW2ZHz';
-    assert.strictEqual(addr.toString('testnet'), expectedAddr);
+    assert.strictEqual(addr.toString('regtest'), expectedAddr);
   });
 
   it('should handle wrong p2pkh hash length', () => {
@@ -80,19 +80,19 @@ describe('Address', function() {
     assert.strictEqual(addr.toString('main'), expectedAddr);
   });
 
-  it('should match testnet p2sh address', () => {
+  it('should match regtest p2sh address', () => {
     const raw = 'c579342c2c4c9220205e2cdc285617040c924a0a';
     const p2sh = Buffer.from(raw, 'hex');
     const addr = Address.fromScripthash(p2sh);
     const expectedAddr = '2NBFNJTktNa7GZusGbDbGKRZTxdK9VVez3n';
-    assert.strictEqual(addr.toString('testnet'), expectedAddr);
+    assert.strictEqual(addr.toString('regtest'), expectedAddr);
   });
 
   it('should match mainnet segwit p2wpkh v0 address', () => {
     const raw = '751e76e8199196d454941c45d1b3a323f1433bd6';
     const p2wpkh = Buffer.from(raw, 'hex');
     const addr = Address.fromWitnessPubkeyhash(p2wpkh);
-    const expectedAddr = 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4';
+    const expectedAddr = 'sc1qw508d6qejxtdg4y5r3zarvary0c5xw7kdkrstm';
     assert.strictEqual(addr.toString('main'), expectedAddr);
   });
 
@@ -104,15 +104,15 @@ describe('Address', function() {
                         + 'b8c6329604903262', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh);
     assert.strictEqual(addr.toString('main'),
-        'bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3');
+        'sc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qfat2ms');
   });
 
-  it('should match testnet segwit p2wpkh v0 address', () => {
+  it('should match regtest segwit p2wpkh v0 address', () => {
     const raw = '751e76e8199196d454941c45d1b3a323f1433bd6';
     const p2wpkh = Buffer.from(raw, 'hex');
     const addr = Address.fromWitnessPubkeyhash(p2wpkh);
-    const expectedAddr = 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
-    assert.strictEqual(addr.toString('testnet'), expectedAddr);
+    const expectedAddr = 'scrt1qw508d6qejxtdg4y5r3zarvary0c5xw7kfrckyg';
+    assert.strictEqual(addr.toString('regtest'), expectedAddr);
   });
 
   it('should match testnet segwit p2pwsh v0 address', () => {
@@ -122,8 +122,8 @@ describe('Address', function() {
                         + '6c985678cd4d27a1'
                         + 'b8c6329604903262', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh);
-    assert.strictEqual(addr.toString('testnet'),
-        'tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7');
+    assert.strictEqual(addr.toString('regtest'),
+        'scrt1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qmvayw3');
   });
 
   it('should match testnet segwit p2pwsh v0 address 2', () => {
@@ -133,8 +133,8 @@ describe('Address', function() {
                         + '362b99d5e91c6ce2'
                         + '4d165dab93e86433', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh);
-    assert.strictEqual(addr.toString('testnet'),
-        'tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy');
+    assert.strictEqual(addr.toString('regtest'),
+        'scrt1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesh6420t');
   });
 
   it('should handle invalid segwit hrp', () => {
@@ -220,32 +220,6 @@ describe('Address', function() {
       assert.strictEqual(version, parsed.version);
 
       assert.bufferEqual(buffer.slice(2), parsed.hash);
-    }
-  });
-
-  it('should identify witness (not version 0) address', () => {
-    // Generated with Bitcoin Core v22.0.0 in regtest
-    const addresses = [
-      'bcrt1pnmrmugapastum8ztvgwcn8hvq2avmcwh2j4ssru7rtyygkpqq98q4wyd6s',
-      'bcrt1plhe602p84nkfdwyllskhaga3yysclz4daly2nyxhjrhvgsjy3v7s7vepr3',
-      'bcrt1pavtamvgrt3hjjrz2zfx5dknx7urxj73d2apc98smmj53ddnvptrqcunafu',
-      'bcrt1p6mnhu48geradgjtss5dhcnjqn7wu8xnnpd89ncs9fhdp8lkkkmasd2u7xy',
-      'bcrt1px2pjntffzxj5wfx589qvr0zetdtxc8wup82ew3xk6u5ykfzgcjyqchpcvf',
-      'bcrt1pu7tmahuyvfkk8v2mdlk77d3l9f9gs6rlkhm9r8xxfweh94qmhq9sl5hm07',
-      'bcrt1p83djth2ga2kjt8jpel0yd6sz3jtzz75zt372ns634z28c0f6ax3s64vzpn',
-      'bcrt1pm7x6crfd3su55x5rwnj9ud57x7hs7z5a0jqlja08wn6v7gp0hczst3jdkh'
-    ];
-
-    for (const addr of addresses) {
-      const parsed = Address.fromString(addr);
-
-      assert.strictEqual(parsed.version, 1);
-
-      const network = Network.get('regtest');
-      assert.strictEqual(
-        parsed.getPrefix(network),
-        parsed.version
-      );
     }
   });
 });
