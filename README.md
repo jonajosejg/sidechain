@@ -1,9 +1,9 @@
-# Bcoin
+# testchain
 
 [![Build Status][circleci-status-img]][circleci-status-url]
 [![Coverage Status][coverage-status-img]][coverage-status-url]
 
-**Bcoin** is an alternative implementation of the Bitcoin protocol, written in
+**Testchain** is an alternative implementation of the Bitcoin protocol, written in
 JavaScript and C/C++ for Node.js.
 
 Bcoin is well tested and aware of all known consensus rules. It is currently
@@ -22,10 +22,10 @@ used in production as the consensus backend and wallet system for
 ## Install
 
 ```
-$ git clone https://github.com/bcoin-org/bcoin
-$ cd bcoin
+$ git clone https://github.com/rojii/sidechain
+$ cd sidechain
 $ npm rebuild
-$ ./bin/bcoin
+$ ./bin/sidechain
 ```
 
 See the [Getting started][guide] guide for more in-depth installation
@@ -37,10 +37,6 @@ latest changes via the [Changelog][changelog].
 - General docs: [docs/](docs/README.md)
 - Wallet and node API docs: https://bcoin.io/api-docs/
 - Library API docs: https://bcoin.io/docs/
-
-## Support
-
-Join us on [freenode][freenode] in the [#bcoin][irc] channel.
 
 ## Disclaimer
 
