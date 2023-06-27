@@ -8,7 +8,9 @@ const Amount = require('../lib/btc/amount');
 
 const ports = {
   main: 8272,
-  regtest: 18743
+  regtest: 18743,
+  mainnetmain: 8332,
+  regtestmain: 48332
 };
 
 class CLI {
@@ -23,7 +25,8 @@ class CLI {
         'k': 'api-key',
         's': 'ssl',
         'h': 'httphost',
-        'p': 'httpport'
+        'p': 'httpport',
+        'mp': 'mainchainport',
       }
     });
 
@@ -45,7 +48,9 @@ class CLI {
       host: this.config.str('http-host'),
       port: this.config.uint('http-port')
         || ports[this.network]
-        || ports.main
+        || ports.main,
+      mainchainPort: this.config.uint('mainchain-port')
+        || ports[this.network.mainchainPort]
     });
   }
 
@@ -278,7 +283,7 @@ class CLI {
         this.log('  $ reset [height/hash]: Reset chain to desired block.');
         this.log('  $ tx [hash/address]: View transactions.');
         this.log('  $ rpc [command] [args]: Execute RPC command.' +
-          ' (`bcoin-cli rpc help` for more)');
+          ' (`sidechain-cli rpc help` for more)');
         break;
     }
   }
