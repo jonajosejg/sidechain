@@ -39,7 +39,7 @@ describe('Difficulty', function() {
     prev.height = 32255;
     const first = new ChainEntry();
     first.time = 1261130161;
-    assert.strictEqual(chain.retarget(prev, first), 0x1d00d86a);
+    assert.strictEqual(chain.retarget(prev, first), 0x1d00ffff);
   });
 
   it('should get next work pow limit', async () => {
@@ -59,7 +59,7 @@ describe('Difficulty', function() {
     prev.height = 68543;
     const first = new ChainEntry();
     first.time = 1279008237;
-    assert.strictEqual(chain.retarget(prev, first), 0x1c0168fd);
+    assert.strictEqual(chain.retarget(prev, first), 0x1c05a3f4);
   });
 
   it('should get next work upper limit actual', async () => {
@@ -69,7 +69,7 @@ describe('Difficulty', function() {
     prev.height = 46367;
     const first = new ChainEntry();
     first.time = 1263163443;
-    assert.strictEqual(chain.retarget(prev, first), 0x1d00e1fd);
+    assert.strictEqual(chain.retarget(prev, first), 0x1c387f6f);
   });
 
   it('should get block proof equivalent time', async () => {
