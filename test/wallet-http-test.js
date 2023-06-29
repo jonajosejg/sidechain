@@ -15,8 +15,8 @@ if (process.browser)
   return;
 
 const ports = {
-  p2p: 49331,
-  wallet: 49333
+  p2p: 18742,
+  wallet: 18745
 };
 
 const node = new FullNode({
