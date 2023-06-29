@@ -121,7 +121,7 @@ describe('Node HTTP', function() {
         '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206'
         + '00000000',
       submitold: false,
-      coinbaseaux: { flags: '6d696e65642062792062636f696e' },
+      coinbaseaux: { flags: '6d696e65642062792073696465636861696e' },
       coinbasevalue: 5000000000,
       transactions: [],
       default_witness_commitment:
@@ -169,7 +169,7 @@ describe('Node HTTP', function() {
   });
 
   it('should validate a p2wpkh address', async () => {
-    const address = 'bcrt1q8gk5z3dy7zv9ywe7synlrk58elz4hrnegvpv6m';
+    const address = 'scrt1q85xpr622u7rapd2flz89mvv87njtmr8lyhn46q';
     const addr = Address.fromString(address);
     const script = Script.fromAddress(addr);
 
