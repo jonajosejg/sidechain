@@ -2295,7 +2295,7 @@ describe('Wallet', function() {
   });
 
   describe('Node Integration', function() {
-    const ports = {p2p: 49331, node: 49332, wallet: 49333};
+    const ports = {p2p: 18742, node: 18743, wallet: 18745};
     let node, chain, miner, wdb = null;
 
     beforeEach(async () => {
