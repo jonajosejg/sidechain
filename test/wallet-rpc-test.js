@@ -21,9 +21,9 @@ const phrase = mnemonics[0][1];
 const network = Network.get('regtest');
 
 const ports = {
-  p2p: 49331,
-  node: 49332,
-  wallet: 49333
+  p2p: 18742,
+  node: 18743,
+  wallet: 18745
 };
 
 const node = new FullNode({
@@ -545,7 +545,7 @@ describe('Wallet RPC Methods', function() {
 
     it('should return the correct program for a p2wpkh address', async () => {
       // m/44'/1'/0'/0/5
-      const receive = 'bcrt1q53724q6cywuzsvq5e3nvdeuwrepu69jsc6ulmx';
+      const receive = 'scrt1qnz0c7ctcttmf95s2ggc0nmpyl5wtrk738k9vdj';
       const addr = Address.fromString(receive);
 
       await wclient.execute('selectwallet', [watchOnlyWalletId]);
