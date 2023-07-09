@@ -49,6 +49,7 @@ class CLI {
       port: this.config.uint('http-port')
         || ports[this.network]
         || ports.main,
+      mainchainHost: this.config.uint('mainchain-host'),
       mainchainPort: this.config.uint('mainchain-port')
         || ports[this.network.mainchainPort]
     });
