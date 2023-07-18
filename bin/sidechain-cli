@@ -4,6 +4,7 @@
 
 const Config = require('bcfg');
 const NodeClient = require('../lib/client/node');
+const MainchainClient = require('../lib/client/mainchain');
 const Amount = require('../lib/btc/amount');
 
 const ports = {
@@ -53,6 +54,8 @@ class CLI {
       mainchainPort: this.config.uint('mainchain-port')
         || ports[this.network.mainchainPort]
     });
+
+    this.mainchain = new MainchainClient();
   }
 
   log(json) {
@@ -63,6 +66,11 @@ class CLI {
 
   async getInfo() {
     const info = await this.client.getInfo();
+    this.log(info);
+  }
+
+  async getMainchainInfo() {
+    const info = await this.mainchain.getMainchainInfo();
     this.log(info);
   }
 
@@ -237,6 +245,9 @@ class CLI {
       case 'info':
         await this.getInfo();
         break;
+      case 'getmainchaininfo':
+        await this.getMainchainInfo();
+        break;
       case 'broadcast':
         await this.broadcast();
         break;
@@ -280,6 +291,7 @@ class CLI {
         this.log('  $ filter [hash/height]: View filter.');
         this.log('  $ header [hash/height]: View block header.');
         this.log('  $ info: Get server info.');
+        this.log('  $ mainchaininfo: Get server info of mainchain.');
         this.log('  $ mempool: Get mempool snapshot.');
         this.log('  $ reset [height/hash]: Reset chain to desired block.');
         this.log('  $ tx [hash/address]: View transactions.');
