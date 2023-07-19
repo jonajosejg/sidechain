@@ -194,10 +194,10 @@ class CLI {
   }
 
   async broadcastWithdrawal() {
-    const raw = this.config.str([0,'tx']);
-    const tx = await this.client.broadcastWithdrawal(raw);
+    const raw = this.config.str([0, 'tx']);
+    const tx = await this.mainchain.broadcastWithdrawalBundle(raw);
 
-    this.log('Broadcasted Withdrawal:');
+    this.log('Broadcasted WithdrawalBundle:');
     this.log(tx);
   }
 
@@ -252,7 +252,7 @@ class CLI {
         await this.broadcast();
         break;
       case 'broadcastwithdrawal':
-        await this.broadcastWithdrawal();
+        await this.broadcastWithdrawalBundle();
         break;
       case 'mempool':
         await this.getMempool();
@@ -286,6 +286,7 @@ class CLI {
         this.log('Commands:');
         this.log('  $ block [hash/height]: View block.');
         this.log('  $ broadcast [tx-hex]: Broadcast transaction.');
+        this.log('  $ broadcastwithdrawal [tx-hex] Broadcast withdrawal bundle.');
         this.log('  $ coin [hash+index/address]: View coins.');
         this.log('  $ fee [target]: Estimate smart fee.');
         this.log('  $ filter [hash/height]: View filter.');
