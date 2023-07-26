@@ -89,7 +89,7 @@ describe('Script', function() {
 
     const decoded = Script.generateWithdrawalBundle(hash);
 
-    assert(decoded.isWithdrawalBundle());
+    assert(decoded.isWithdrawalBundleSpentCommit());
     assert(decoded.getWithdrawalBundle().equals(hash));
   });
 
