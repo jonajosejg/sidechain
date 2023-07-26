@@ -4,6 +4,8 @@
 'use strict';
 
 const assert = require('bsert');
+const random = require('bcrypto/lib/random');
+const SHA256 = require('bcrypto/lib/sha256');
 const Script = require('../lib/script/script');
 const Witness = require('../lib/script/witness');
 const Stack = require('../lib/script/stack');
@@ -79,6 +81,36 @@ describe('Script', function() {
       + '5e294f7665726c6179404f7261636c65103b1a010c';
     const decoded = Script.fromRaw(hex, 'hex');
     assert(decoded.isNulldata());
+  });
+
+  it('should recognize a withdrawal bundle output', () => {
+    const data = random.randomBytes(0x20);
+    const hash = SHA256.digest(data);
+
+    const decoded = Script.generateWithdrawalBundle(hash);
+
+    assert(decoded.isWithdrawalBundle());
+    assert(decoded.getWithdrawalBundle().equals(hash));
+  });
+
+  it('should recognize a withdrawal bundle commitment output', () => {
+    const inp = random.randomBytes(0x20);
+    const hash = SHA256.digest(inp);
+
+    const decoded = Script.fromWithdrawalBundleHashCommit(hash);
+
+    assert(decoded.isWithdrawalBundleHashCommitment());
+    assert(decoded.getWithdrawalBundleHashCommit().equals(hash));
+  });
+
+  it('should recognize a failed withdrawal commitment output', () => {
+    const inp = random.randomBytes(0x20);
+    const hash = SHA256.digest(inp);
+
+    const decoded = Script.fromFailedWithdrawalCommit(hash);
+
+    assert(decoded.isFailedWithdrawalCommitment());
+    assert(decoded.getFailedWithdrawalCommitment().equals(hash));
   });
 
   it('should handle if statements correctly', () => {
