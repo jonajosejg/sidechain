@@ -159,6 +159,12 @@ class CLI {
     this.log(Amount.btc(json.rate));
   }
 
+  async getMainchainFee() {
+    const blocks = this.config.uint(0, 1);
+    const json = await this.mainchain.getAverageMainchainFees(blocks)
+    this.log(json);
+  }
+
   async getCoin() {
     const hash = this.config.str(0, '');
     const index = this.config.uint(1);
@@ -245,7 +251,7 @@ class CLI {
       case 'info':
         await this.getInfo();
         break;
-      case 'getmainchaininfo':
+      case 'mainchaininfo':
         await this.getMainchainInfo();
         break;
       case 'broadcast':
@@ -275,6 +281,9 @@ class CLI {
       case 'fee':
         await this.estimateFee();
         break;
+      case 'mainchainfee':
+        await this.getMainchainFee();
+        break;
       case 'reset':
         await this.reset();
         break;
@@ -289,6 +298,7 @@ class CLI {
         this.log('  $ broadcastwithdrawal [tx-hex] Broadcast withdrawal bundle.');
         this.log('  $ coin [hash+index/address]: View coins.');
         this.log('  $ fee [target]: Estimate smart fee.');
+        this.log('  $ mainchainfee [target]: Estimate fee on mainchain.');
         this.log('  $ filter [hash/height]: View filter.');
         this.log('  $ header [hash/height]: View block header.');
         this.log('  $ info: Get server info.');
