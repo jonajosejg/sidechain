@@ -90,7 +90,7 @@ describe('Script', function() {
     const decoded = Script.generateWithdrawalBundle(hash);
 
     assert(decoded.isWithdrawalBundleSpentCommit());
-    assert(decoded.getWithdrawalBundle().equals(hash));
+    assert(decoded.getSpentWithdrawalBundle().equals(hash));
   });
 
   it('should recognize a withdrawal bundle commitment output', () => {
@@ -111,6 +111,11 @@ describe('Script', function() {
 
     assert(decoded.isFailedWithdrawalCommitment());
     assert(decoded.getFailedWithdrawalCommitment().equals(hash));
+  });
+
+  it('should recognize a withdrawal refund request', () => {
+
+
   });
 
   it('should handle if statements correctly', () => {
