@@ -161,7 +161,12 @@ class CLI {
 
   async getMainchainFee() {
     const blocks = this.config.uint(0, 1);
-    const json = await this.mainchain.getAverageMainchainFees(blocks)
+    const json = await this.mainchain.getAverageMainchainFees(blocks);
+    this.log(json);
+  }
+
+  async getRecentMainBlocks() {
+    const json = await this.mainchain.getRecentBlockHashes();
     this.log(json);
   }
 
@@ -284,6 +289,8 @@ class CLI {
       case 'mainchainfee':
         await this.getMainchainFee();
         break;
+      case 'recentmainblocks':
+        await this.getRecentMainBlocks();
       case 'reset':
         await this.reset();
         break;
@@ -304,6 +311,7 @@ class CLI {
         this.log('  $ info: Get server info.');
         this.log('  $ mainchaininfo: Get server info of mainchain.');
         this.log('  $ mempool: Get mempool snapshot.');
+        this.log('  $ recentmainblocks: Gets the latest 5 blocks from the mainchain.');
         this.log('  $ reset [height/hash]: Reset chain to desired block.');
         this.log('  $ tx [hash/address]: View transactions.');
         this.log('  $ rpc [command] [args]: Execute RPC command.' +
