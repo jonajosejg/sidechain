@@ -113,8 +113,13 @@ describe('Script', function() {
     assert(decoded.getFailedWithdrawalCommitment().equals(hash));
   });
 
-  it('should recognize a withdrawal refund request', () => {
+  it('should recognize a previous block commitment between mainchain, sidechain blocks', () => {
+    const mainchain = SHA256.digest(random.randomBytes(32));
+    const sidechain = SHA256.digest(random.randomBytes(32));
 
+    const decoded = Script.fromPreviousBlockCommitment(mainchain, sidechain);
+    assert(decoded.isPreviousBlockCommitment());
+    assert(decoded.getMainchainBlockHash().equals(mainchain));
 
   });
 
