@@ -120,6 +120,7 @@ describe('Script', function() {
     const decoded = Script.fromPreviousBlockCommitment(mainchain, sidechain);
     assert(decoded.isPreviousBlockCommitment());
     assert(decoded.getMainchainBlockHash().equals(mainchain));
+    assert(decoded.getSidechainBlockHash().equals(sidechain));
 
   });
 
