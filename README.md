@@ -1,8 +1,5 @@
 # testchain
 
-[![Build Status][circleci-status-img]][circleci-status-url]
-[![Coverage Status][coverage-status-img]][coverage-status-url]
-
 **Testchain** is an alternative implementation of the testchain sidechian template for the  BIP300, BIP301 proposal, project protocol, written in
 JavaScript and C/C++ for Node.js.
 
