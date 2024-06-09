@@ -25,10 +25,11 @@ describe('Address', function() {
     assert.strictEqual(Address.isDepositAddress(addr), true);
   });
 
-  it('should detect the sidechain address is formatted', () => {
+  it('should detect the sidechain address is formatted correctly', () => {
     const wpkh = 'sc1q53r9mf64kasf60zhlugf4jmw0rqq3pzzknj9nv';
     const addr = Address.generateDepositAddress(wpkh);
-    assert.strictEqual(Address.isDepositAddress(addr), true);
+    const expectedAddr = 's0_sc1q53r9mf64kasf60zhlugf4jmw0rqq3pzzknj9nv_e3b0c4';
+    assert.strictEqual(addr, expectedAddr);
   });
 
   it('should match mainnet p2pkh address 2', () => {
