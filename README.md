@@ -27,6 +27,7 @@ latest changes via the [Changelog][changelog].
 ## Documentation
 
 - General docs: [docs/](docs/README.md)
+- For an interactive script that can be used for building this project alongside the [mainchain software](https://github.com/educationofjon/integration-script)
 
 ## Contribution and License Agreement
 
@@ -38,7 +39,7 @@ all code is your original work. `</legalese>`
 
 - Copyright (c) 2014-2015, Fedor Indutny (MIT License).
 - Copyright (c) 2014-2017, Christopher Jeffrey (MIT License).
-- Copyright (C) 2023, Jonathan Gonzales (MIT License).
+- Copyright (C) 2023-2024 Jonathan Gonzales (MIT License).
 See LICENSE for more info.
 
 
