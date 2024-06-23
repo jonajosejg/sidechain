@@ -3,54 +3,41 @@
 
 'use strict';
 
-const Headers = require('../lib/primitives/headers');
 const assert = require('bsert');
-const common = require('./util/common');
+const Headers = require('../lib/primitives/headers');
+const Block = require('../lib/primitives/block');
+const Network = require('../lib/protocol/network');
 
-const block1 = common.readBlock('block1');
-const headers1 = common.readFile('headers1.raw');
+/*
+ * Constants
+ */
+
+const network = Network.get('regtest');
+const genesis = network.genesisBlock;
+const block = Block.fromRaw(genesis, 'hex');
 
 describe('Headers', function() {
   it('should match headers size', () => {
     const headers = new Headers();
 
-    assert.strictEqual(headers.getSize(), 81);
+    assert.strictEqual(headers.getSize(), 137);
   });
 
   it('should match block1 headers from block', () => {
-    const [blockOne] = block1.getBlock();
-    const headers = Headers.fromBlock(blockOne);
+    const blk1 = block;
+    const headers = Headers.fromBlock(blk1);
 
-    assert.strictEqual(headers.time, 1231469665);
-    assert.strictEqual(headers.bits, 486604799);
-    assert.strictEqual(headers.nonce, 2573394689);
+    assert.strictEqual(headers.getSize(), 137);
+
+    assert.strictEqual(headers.time, 0);
     assert.strictEqual(headers.version, 1);
 
     assert.strictEqual(headers.prevBlock.toString('hex'),
-      '6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000');
+      '0000000000000000000000000000000000000000000000000000000000000000');
     assert.strictEqual(headers.merkleRoot.toString('hex'),
-      '982051fd1e4ba744bbbe680e1fee14677ba1a3c3540bf7b1cdb606e857233e0e');
+      '8a6be158deb38d5cc20aa8612ac303bb7ae59520d3b22213df5e88434f36b18e');
     assert.strictEqual(headers.rhash(),
-      '00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048');
-
-    assert(headers.verifyBody());
-    assert(headers.verifyPOW());
-  });
-
-  it('should match block1 headers from raw', () => {
-    const headers = Headers.fromRaw(headers1);
-
-    assert.strictEqual(headers.time, 1231469665);
-    assert.strictEqual(headers.bits, 486604799);
-    assert.strictEqual(headers.nonce, 2573394689);
-    assert.strictEqual(headers.version, 1);
-
-    assert.strictEqual(headers.prevBlock.toString('hex'),
-      '6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000');
-    assert.strictEqual(headers.merkleRoot.toString('hex'),
-      '982051fd1e4ba744bbbe680e1fee14677ba1a3c3540bf7b1cdb606e857233e0e');
-    assert.strictEqual(headers.rhash(),
-      '00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048');
+      '14d9aa5f9fbaa70eb702a64e5e9d1684ad38bf31737c17bd19b5b49705444774');
 
     assert(headers.verifyBody());
     assert(headers.verifyPOW());
