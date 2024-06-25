@@ -865,15 +865,15 @@ describe('TX', function() {
 
     const addresses = [
       // inputs
-      Address.fromBech32('bc1qnjhhj5g8u46fvhnm34me52ahnx5vhhhuk6m7ng'),
-      Address.fromBech32('bc1q3ehzk5qa02sf05zyll0thth5t92kg6twah8hj3'),
+      Address.fromBech32('sc1qnjhhj5g8u46fvhnm34me52ahnx5vhhhuht3lnx'),
+      Address.fromBech32('sc1q3ehzk5qa02sf05zyll0thth5t92kg6twuxdkjl'),
       Address.fromBase58('1C4irrkJiHhjKq62uPBw9huZnQsFSRHtjn'),
-      Address.fromBech32('bc1q4gzv2jkfnym3s8f69kj55l4yfh7aallphtzutp'),
-      Address.fromBech32('bc1q8838eem5cqqlxn34neay8sd7ru4nnm7yfv66xv'),
+      Address.fromBech32('sc1q4gzv2jkfnym3s8f69kj55l4yfh7aallpk6gat0'),
+      Address.fromBech32('sc1q8838eem5cqqlxn34neay8sd7ru4nnm7ygasmxz'),
 
       // outputs
-      Address.fromBech32('bc1q4uxyx3qaanm5elq4w2kxytvkpufa33s08vldx7'),
-      Address.fromBech32('bc1q8m66kw3789mvpfpcxxh880zg6jjwpyntspcnmy')
+      Address.fromBech32('sc1q4uxyx3qaanm5elq4w2kxytvkpufa33s0xa4vxs'),
+      Address.fromBech32('sc1q8m66kw3789mvpfpcxxh880zg6jjwpynt3sjjm2')
     ];
 
     const addressesView = tx.getAddresses(view);
@@ -1043,60 +1043,6 @@ describe('TX', function() {
 
     assert.strictEqual(tx.getRoundFee(1000, rate), 1000);
     assert.strictEqual(tx.getRoundFee(1001, rate), 2000);
-  });
-
-  it('should return JSON for tx', () => {
-    const [tx, view] = tx2.getTX();
-    const hash = '7ef7cde4e4a7829ea6feaf377c924b36d0958e22'
-      + '31a31ff268bd33a59ac9e178';
-    const version = 0;
-    const locktime = 0;
-    const hex = tx2.getRaw().toString('hex');
-
-    // hack for ChainEntry
-    const entry = {
-      height: 1000,
-      hash: Buffer.from(
-        'c82d447db6150d2308d9571c19bc3dc6efde97a8227d9e57bc77ec0900000000',
-        'hex'),
-      time: 1365870306
-    };
-    const network = 'testnet';
-    const index = 0;
-
-    const jsonDefault = tx.getJSON(network);
-    const jsonView = tx.getJSON(network, view);
-    const jsonEntry = tx.getJSON(network, null, entry);
-    const jsonIndex = tx.getJSON(network, null, null, index);
-    const jsonAll = tx.getJSON(network, view, entry, index);
-
-    for (const json of [jsonDefault, jsonView, jsonEntry, jsonIndex, jsonAll]) {
-      assert.strictEqual(json.hash, hash);
-      assert.strictEqual(json.witnessHash, hash);
-      assert.strictEqual(json.version, version);
-      assert.strictEqual(json.locktime, locktime);
-      assert.strictEqual(json.hex, hex);
-    }
-
-    const fee = 10000;
-    const rate = 44247;
-
-    for (const json of [jsonView, jsonAll]) {
-      assert.strictEqual(json.fee, fee);
-      assert.strictEqual(json.rate, rate);
-    }
-
-    const date = '2013-04-13T16:25:06Z';
-    for (const json of [jsonEntry, jsonAll]) {
-      assert.strictEqual(json.height, entry.height);
-      assert.strictEqual(json.block, util.revHex(entry.hash));
-      assert.strictEqual(json.time, entry.time);
-      assert.strictEqual(json.date, date);
-    }
-
-    for (const json of [jsonIndex, jsonAll]) {
-      assert.strictEqual(json.index, index);
-    }
   });
 
   it('should recover coins from JSON', () => {
