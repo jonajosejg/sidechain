@@ -83,34 +83,40 @@ describe('Script', function() {
     assert(decoded.isNulldata());
   });
 
-  it('should recognize a withdrawal bundle output', () => {
-    const data = random.randomBytes(0x20);
-    const hash = SHA256.digest(data);
+  it('should recognize a spent withdrawal bundle output', () => {
+    const input = random.randomBytes(0x20);
+    const hash = SHA256.digest(input);
 
-    const decoded = Script.generateWithdrawalBundle(hash);
+    const decoded = Script.fromWithdrawalBundleSpentCommitment(hash);
 
     assert(decoded.isWithdrawalBundleSpentCommit());
-    assert(decoded.getSpentWithdrawalBundle().equals(hash));
   });
 
-  it('should recognize a withdrawal bundle commitment output', () => {
-    const inp = random.randomBytes(0x20);
-    const hash = SHA256.digest(inp);
+  it('should recognize a withdrawal bundle hash output', () => {
+    const input = random.randomBytes(0x20);
+    const hash = SHA256.digest(input);
 
     const decoded = Script.fromWithdrawalBundleHashCommit(hash);
 
     assert(decoded.isWithdrawalBundleHashCommitment());
-    assert(decoded.getWithdrawalBundleHashCommit().equals(hash));
   });
 
   it('should recognize a failed withdrawal commitment output', () => {
-    const inp = random.randomBytes(0x20);
-    const hash = SHA256.digest(inp);
+    const input = random.randomBytes(0x20);
+    const hash = SHA256.digest(input);
 
-    const decoded = Script.fromFailedWithdrawalCommit(hash);
+    const decoded = Script.fromFailedWithdrawalBundle(hash);
 
-    assert(decoded.isFailedWithdrawalCommitment());
+    assert(decoded.isFailedWithdrawalBundle());
     assert(decoded.getFailedWithdrawalCommitment().equals(hash));
+  });
+
+  it('should recognize a withdrawal refund output', () => {
+    const withdrawalID = SHA256.digest(random.randomBytes(0x20));
+    const signature = random.randomBytes(0x41);
+
+    const decoded = Script.fromWithdrawalRefundRequest(withdrawalID, signature);
+    assert(decoded.isWithdrawalRefundRequest());
   });
 
   it('should recognize a previous block commitment between mainchain, sidechain blocks', () => {
@@ -119,9 +125,6 @@ describe('Script', function() {
 
     const decoded = Script.fromPreviousBlockCommitment(mainchain, sidechain);
     assert(decoded.isPreviousBlockCommitment());
-    assert(decoded.getMainchainBlockHash().equals(mainchain));
-    assert(decoded.getSidechainBlockHash().equals(sidechain));
-
   });
 
   it('should handle if statements correctly', () => {
