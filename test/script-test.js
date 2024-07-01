@@ -127,6 +127,14 @@ describe('Script', function() {
     assert(decoded.isPreviousBlockCommitment());
   });
 
+  it('should encode withdrawal fees into an op return', () => {
+    const amount = 1000000; // 0.01 BTC in satoshis
+    const script = Script.encodeWithdrawalFees(amount);
+
+    assert(script.raw[0] === Script.opcodes.OP_RETURN);
+    assert(script.raw.toString('hex').length === 20);
+  });
+
   it('should handle if statements correctly', () => {
     {
       const input = new Script([
