@@ -127,6 +127,12 @@ describe('Script', function() {
     assert(decoded.isPreviousBlockCommitment());
   });
 
+  it('should recoginize a sidechain object', () => {
+    const hash = SHA256.digest(random.randomBytes(0x20));
+    const script = Script.fromSidechainObject(hash);
+    assert(script.isSidechainObject());
+  });
+
   it('should encode withdrawal fees into an op return', () => {
     const amount = 1000000; // 0.01 BTC in satoshis
     const script = Script.encodeWithdrawalFees(amount);
